@@ -1,6 +1,8 @@
 package model;
 
 public class CafeVO {
+	
+	
 	private int c_no; //카페번호
 	private String name; //카페이름
 	private String address; //카페주소
