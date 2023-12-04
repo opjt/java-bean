@@ -5,13 +5,13 @@ import java.util.Scanner;
 import model.CafeVO;
 
 public class CafeController {
-
+	//전체목록 출력
 	public void showList() {
 		CafeDAO cafeDAO = new CafeDAO();
 		cafeDAO.selectAllCafe();
 		
 	}
-
+	//카페추가
 	public void addCafe() {
 		Scanner input = new Scanner(System.in);
 		
@@ -37,7 +37,7 @@ public class CafeController {
 		System.out.println();
 		
 	}
-
+	//카페삭제
 	public void removeCafe() {
 		CafeVO cafe = null;
 		CafeDAO cafeDAO = new CafeDAO();

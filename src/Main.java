@@ -1,17 +1,19 @@
 import java.util.Scanner;
 
+import controller.BeanController;
 import controller.CafeController;
 
 public class Main {
 	
 	final static String PW = "1234";
 	static boolean loginCookie = false;
-	static Scanner input = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		mainMenu();
 	}
 
 	private static void mainMenu() {
+		Scanner input = new Scanner(System.in);
 		while(true) {
 			
 			String password;
@@ -67,6 +69,8 @@ public class Main {
 	}
 
 	private static void showCafeMenu() {
+		Scanner input = new Scanner(System.in);
+		
 		System.out.println("1.카페목록");
 		System.out.println("2.카페추가");
 		System.out.println("3.카페삭제");
@@ -97,10 +101,36 @@ public class Main {
 	}
 
 	private static void showBeanMenu() {
-		System.out.println("1.원두관리");
-		System.out.println("2.원두추가");
-		System.out.println("3.원두삭제");
-		System.out.println("4.메인메뉴");
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("1.원두목록");
+		System.out.println("2.원두상세정보");
+		System.out.println("3.원두추가");
+		System.out.println("4.원두삭제");
+		System.out.println("5.메인메뉴");
+		
+		int choice = input.nextInt();
+		BeanController beanController = new BeanController();
+		
+		switch(choice) {
+		case 1:
+			beanController.showList();
+			break;
+		case 2:
+			beanController.selectBean();
+			break;
+		case 3:
+			beanController.addBean();
+			break;
+		case 4:
+			beanController.removeBean();
+			break;
+		case 5:
+			return;
+		default:
+			System.out.println("잘못된 메뉴 선택입니다");
+			break;
+		}
 		
 	}
 }

@@ -9,8 +9,7 @@ import model.CafeVO;
 
 public class CafeDAO {
 
-//	insert into cafe (c_no,name,address,tel,license,state) values 
-//	(cafe_seq.nextval,'메가커피','가산','010-234','11', default);
+	
 	public void insertCafe(CafeVO cafe) {
 		String sql = "insert into cafe (c_no,name,address,tel,license,state) values "
 				+ "(cafe_seq.nextval,?,?,?,?,?)";
@@ -45,6 +44,7 @@ public class CafeDAO {
 			}
 		}
 	}
+	//카페 삭제
 	public void updateCafe(CafeVO cafe) {
 		String sql = "update cafe set state = 0 where c_no = ?";
 		Connection con = null;
@@ -76,6 +76,7 @@ public class CafeDAO {
 			}
 		}
 	}
+	//카페 전체목록출력
 	public void selectAllCafe() {
 		String sql = "select * from cafe where state != 0 order by c_no";
 		Connection con = null;
@@ -113,7 +114,7 @@ public class CafeDAO {
 		}
 		
 	}
-	
+	//카페아이디 입력받아서 카페정보반환
 	public CafeVO selectCafe(int cafeId) {
 		String sql = "select * from cafe where c_no = ?";
 		Connection con = null;

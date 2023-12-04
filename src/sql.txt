@@ -1,12 +1,19 @@
+drop table orders;
+drop table bean;
+drop table cafe;
+
 create table bean(
     b_no NUMBER(30) primary key,
-    name varchar2(30) not null unique,
-    country varchar2(30) not null,
-    area varchar2(30) not null,
-    farm varchar2(30) not null,
-    farmer varchar2(30) not null,
-    process number(20) not null,
-    flavor varchar2(30) not null,
+    name varchar2(100) not null unique,
+    country varchar2(100) not null,
+    area varchar2(100) not null,
+    farm varchar2(100) not null,
+    farmer varchar2(100) not null,
+    altitude number(20) not null,
+    variety varchar2(100) not null,
+    process varchar2(100) not null,
+    roasting varchar2(100) not null,
+    flavor varchar2(100) not null,
     volume NUMBER(38) not null,
     makedate date not null,
     price number(38) not null,
@@ -14,35 +21,42 @@ create table bean(
     state number(20) default 1 not null
 );
 
+
+
+create table cafe (
+    c_no number(30) primary key,
+    name varchar2(100) not null,
+    address varchar2(100) not null,
+    tel varchar2(100) not null,
+    license varchar2(100) not null,
+    state number(20) default 1 not null
+);
+
+
+create table orders (
+    o_no number(30) primary key,
+    c_no number(30) not null,
+    b_no number(30) not null,
+    volume number(38) not null,
+    o_date date not null,
+    price number(38) not null,
+    address varchar2(100) not null,
+    foreign key(c_no) references cafe(c_no),
+    foreign key(b_no) references bean(b_no)
+);
+
 create sequence bean_seq
 start with 1
 increment by 1;
 
-create table cafe (
-    c_no number(20) primary key,
-    name varchar2(30) not null,
-    address varchar2(30) not null,
-    tel varchar2(30) not null,
-    license varchar2(30) not null,
-    state number(20) default 1 not null
-);
+
 create sequence cafe_seq
 start with 1
 increment by 1;
 
-create table orders (
-    o_no number(20) primary key,
-    c_no number(20) not null,
-    b_no number(20) not null,
-    volume number(38) not null,
-    o_date date not null,
-    price number(38) not null,
-    address varchar2(30) not null,
-    foreign key(c_no) references cafe(c_no),
-    foreign key(b_no) references bean(b_no)
-);
 create sequence orders_seq
 start with 1
 increment by 1;
+
 
 
