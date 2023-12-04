@@ -136,6 +136,8 @@ public class CafeDAO {
 				cafeVO.setTel(rs.getString("tel"));
 				cafeVO.setLicense(rs.getString("license"));
 				return cafeVO;
+			} else {
+				System.out.println("찾을 수 없는 카페 아이디입니다");
 			}
 		} catch (SQLException se) {
 			System.out.println(se);

@@ -154,7 +154,7 @@ public class BeanDAO {
 				return beanVO;
 			
 			} else {
-				System.out.println("찾을 수 없음");
+				System.out.println("찾을 수 없는 원두 아이디입니다.");
 			}
 		} catch (SQLException se) {
 			System.out.println(se);

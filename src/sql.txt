@@ -41,6 +41,7 @@ create table orders (
     o_date date not null,
     price number(38) not null,
     address varchar2(100) not null,
+    state number(2) not null,
     foreign key(c_no) references cafe(c_no),
     foreign key(b_no) references bean(b_no)
 );
