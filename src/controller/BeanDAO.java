@@ -198,8 +198,7 @@ public class BeanDAO {
 				beanVO.setCost(rs.getInt("cost"));
 				
 				System.out.println(beanVO.getB_no() + "\t\t" + beanVO.getName() + "\t\t" + beanVO.getCountry() 
-				+"\t\t"  + beanVO.getVolume() + "\t\t" + beanVO.getMakeDate() + "\t\t" + beanVO.getPrice() 
-				+ "\t\t" + beanVO.getCost());
+				+"\t\t"  + beanVO.getVolume()  + "\t\t" + beanVO.getPrice() + "\t\t" + beanVO.getCost());
 			}
 		} catch (SQLException se) {
 			System.out.println(se);

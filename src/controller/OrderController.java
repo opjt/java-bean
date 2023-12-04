@@ -10,7 +10,33 @@ public class OrderController {
 	static OrderDAO orderDAO = new OrderDAO();
 
 	public void showList() {
-		orderDAO.selectAll();
+		Scanner input = new Scanner(System.in);
+		int choice;
+		
+		System.out.println("1. 전체조회");
+		System.out.println("2. 날짜조회");
+		System.out.print("메뉴를 선택하시오 : ");
+		
+		choice = input.nextInt();
+		if(choice == 1) {
+			orderDAO.selectAll("0","0");	
+		} else if(choice == 2) {
+			while(true) {
+				System.out.print("조회할 날짜를 입력하시오(ex:'2023-12-01 2023-12-22'띄어쓰기로 구분) : ");
+
+				String firstDate = input.next();
+				String secondDate = input.next();
+				
+				if(DBUtil.isDate(firstDate) && DBUtil.isDate(secondDate)) {
+					orderDAO.selectAll(firstDate, secondDate);	
+					break;
+				} else {
+					System.out.println("잘못된 날짜 형식입니다");
+				}
+			}
+			
+		}
+		
 
 	}
 
