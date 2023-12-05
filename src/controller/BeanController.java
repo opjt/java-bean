@@ -8,12 +8,12 @@ import model.CafeVO;
 public class BeanController {
 	static BeanDAO beanDAO = new BeanDAO();
 	
-	public void showList() {
+	public void showList() { //원두전체목록
 		beanDAO.selectAllBean();
 		
 	}
 
-	public void addBean() {
+	public void addBean() { //원두추가
 		Scanner input = new Scanner(System.in);
 		BeanVO bean = new BeanVO();
 		
@@ -99,37 +99,55 @@ public class BeanController {
 		beanDAO.insertBean(bean);
 	}
 
-	public void removeBean() {
+	public void removeBean() { // 원두삭제
 		Scanner input = new Scanner(System.in);
 		
-		beanDAO.selectAllBean();
+		beanDAO.selectAllBean(); //원두전체목록
 		
 		System.out.print("원두 번호 입력 : ");
 		beanDAO.deleteBean(beanDAO.selectBean(input.nextInt()));
 	
-		
 	}
 
-	public void selectBean() {
+	public void selectBean() { //원두 상세정보
 		Scanner input = new Scanner(System.in);
 		
 		beanDAO.selectAllBean();
 		
 		System.out.print("원두 번호 입력 : ");
 		
+		BeanVO beanVO = beanDAO.selectBean(input.nextInt()); //원두를 원두번호로 불러오기
+//		System.out.println("일련번호\t\t원두이름\t\t원산지\t\t지배지\t\t농장");
+//		System.out.println(beanVO.getB_no() + "\t\t" + beanVO.getName() + "\t\t" + beanVO.getCountry() +"\t\t" + beanVO.getArea()
+//		+"\t\t" + beanVO.getFarm());
+//		System.out.println("농부\t\t해발고도\t\t품종\t\t가공방식\t\t볶음도");
+//		System.out.println(beanVO.getFarmer() + "\t\t" + beanVO.getAltitude() + "\t\t" + beanVO.getVariety() +"\t\t" + beanVO.getProcess() + 
+//		"\t\t" + beanVO.getRoasting());
+//		System.out.println("향미\t\t용량\t\t제조일\t\t판매가\t\t원가");
+//		System.out.println(beanVO.getFlavor() + "\t\t" + beanVO.getVolume() + "\t\t" + beanVO.getMakeDate() + "\t\t" + beanVO.getPrice() 
+//		+ "\t\t" + beanVO.getCost());
+		System.out.println("────────────────────────────────────────────");
+		System.out.println("일련번호: " + beanVO.getB_no());
+		System.out.println("원두이름: " + beanVO.getName());
+		System.out.println("원산지: " + beanVO.getCountry());
+		System.out.println("지배지: " + beanVO.getArea());
+		System.out.println("농장: " + beanVO.getFarm());
+
+		System.out.println("농부: " + beanVO.getFarmer());
+		System.out.println("해발고도: " + beanVO.getAltitude());
+		System.out.println("품종: " + beanVO.getVariety());
+		System.out.println("가공방식: " + beanVO.getProcess());
+		System.out.println("볶음도: " + beanVO.getRoasting());
+
+		System.out.println("향미: " + beanVO.getFlavor());
+		System.out.println("용량: " + beanVO.getVolume());
+		System.out.println("제조일: " + beanVO.getMakeDate());
+		System.out.println("판매가: " + beanVO.getPrice());
+		System.out.println("원가: " + beanVO.getCost());
+		System.out.println("────────────────────────────────────────────");
+
 		
-		
-		BeanVO beanVO = beanDAO.selectBean(input.nextInt());
-		System.out.println("일련번호\t\t원두이름\t\t원산지\t\t지배지\t\t농장");
-		System.out.println(beanVO.getB_no() + "\t\t" + beanVO.getName() + "\t\t" + beanVO.getCountry() +"\t\t" + beanVO.getArea()
-		+"\t\t" + beanVO.getFarm());
-		System.out.println("농부\t\t해발고도\t\t품종\t\t가공방식\t\t볶음도");
-		System.out.println(beanVO.getFarmer() + "\t\t" + beanVO.getAltitude() + "\t\t" + beanVO.getVariety() +"\t\t" + beanVO.getProcess() + 
-		"\t\t" + beanVO.getRoasting());
-		System.out.println("향미\t\t용량\t\t제조일\t\t판매가\t\t원가");
-		System.out.println(beanVO.getFlavor() + "\t\t" + beanVO.getVolume() + "\t\t" + beanVO.getMakeDate() + "\t\t" + beanVO.getPrice() 
-		+ "\t\t" + beanVO.getCost());
-	
+
 		
 	}
 

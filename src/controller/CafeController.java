@@ -8,7 +8,8 @@ public class CafeController {
 	//전체목록 출력
 	public void showList() {
 		CafeDAO cafeDAO = new CafeDAO();
-		cafeDAO.selectAllCafe();
+		cafeDAO.selectAllCafe();	
+		
 		
 	}
 	//카페추가
