@@ -3,6 +3,7 @@ import java.util.Scanner;
 import controller.BeanController;
 import controller.CafeController;
 import controller.OrderController;
+import controller.OrderDAO;
 
 public class Main {
 
@@ -45,6 +46,10 @@ public class Main {
 				case 3: // 발주
 					showOrderMenu();
 					break;
+				case 4:
+					OrderDAO orderDAO = new OrderDAO();
+					orderDAO.totalPirce();
+					break;
 				case 5:
 					System.out.println("프로그램 종료");
 					return;
@@ -73,13 +78,13 @@ public class Main {
 		OrderController orderController = new OrderController();
 
 		switch (choice) {
-		case 1:
+		case 1: //발주 조회
 			orderController.showList();
 			break;
-		case 2:
+		case 2: //발주 생성
 			orderController.addOrder();
 			break;
-		case 3:
+		case 3: //메인메뉴
 			break;
 		case 4:
 			return;
@@ -103,13 +108,13 @@ public class Main {
 		CafeController cafeController = new CafeController();
 
 		switch (choice) {
-		case 1:
+		case 1: //카페목록
 			cafeController.showList();
 			break;
-		case 2:
+		case 2: //카페추가
 			cafeController.addCafe();
 			break;
-		case 3:
+		case 3: //카페삭제
 			cafeController.removeCafe();
 			break;
 		case 4:
@@ -135,16 +140,16 @@ public class Main {
 		BeanController beanController = new BeanController();
 
 		switch (choice) {
-		case 1:
+		case 1: //원두목록
 			beanController.showList();
 			break;
-		case 2:
+		case 2: //원두상세정보
 			beanController.selectBean();
 			break;
-		case 3:
+		case 3: //원두추가
 			beanController.addBean();
 			break;
-		case 4:
+		case 4: //원두삭제
 			beanController.removeBean();
 			break;
 		case 5:

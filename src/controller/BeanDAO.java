@@ -187,7 +187,8 @@ public class BeanDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			System.out.println("일련번호\t\t원두이름\t\t원산지\t\t용량\t\t판매가\t\t원가");
+			System.out.println("일련번호\t원두이름-원산지 :: 판매가(원가)-용량");
+			System.out.println("────────────────────────────────────────");
 			while (rs.next()) {
 				beanVO = new BeanVO();
 				beanVO.setB_no(rs.getInt("b_no"));
@@ -197,9 +198,10 @@ public class BeanDAO {
 				beanVO.setPrice(rs.getInt("price"));
 				beanVO.setCost(rs.getInt("cost"));
 				
-				System.out.println(beanVO.getB_no() + "\t\t" + beanVO.getName() + "\t\t" + beanVO.getCountry() 
-				+"\t\t"  + beanVO.getVolume()  + "\t\t" + beanVO.getPrice() + "\t\t" + beanVO.getCost());
+				System.out.println(beanVO.getB_no() + "\t" + beanVO.getName() + "-" + beanVO.getCountry() 
+				+" :: "  + beanVO.getVolume()  + "g-" + beanVO.getPrice() + "원(" + beanVO.getCost()+ "원)");
 			}
+			System.out.println("────────────────────────────────────────");
 		} catch (SQLException se) {
 			System.out.println(se);
 		} catch (Exception e) {

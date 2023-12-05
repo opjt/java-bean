@@ -19,7 +19,7 @@ public class OrderController {
 		
 		choice = input.nextInt();
 		if(choice == 1) {
-			orderDAO.selectAll("0","0");	
+			orderDAO.selectAll("0","0"); //첫번째 0 입력시 전체출력	
 		} else if(choice == 2) {
 			while(true) {
 				System.out.print("조회할 날짜를 입력하시오(ex:'2023-12-01 2023-12-22'띄어쓰기로 구분) : ");
@@ -34,9 +34,7 @@ public class OrderController {
 					System.out.println("잘못된 날짜 형식입니다");
 				}
 			}
-			
 		}
-		
 
 	}
 
@@ -74,7 +72,7 @@ public class OrderController {
 		input = new Scanner(System.in);
 
 		while (true) {
-			System.out.print("수량 입력(g) : ");
+			System.out.print("수량 입력(개수) : ");
 			String value = input.nextLine();
 			if (DBUtil.isInteger(value)) {
 				orderVO.setVolume(Integer.parseInt(value));
@@ -96,7 +94,6 @@ public class OrderController {
 		}
 		System.out.print("배송지를 입력하시오 : ");
 		orderVO.setAddress(input.nextLine());
-		
 		orderDAO.insertOrder(orderVO);
 		
 
