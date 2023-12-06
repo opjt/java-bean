@@ -27,7 +27,7 @@ public class BeanDAO {
 			pstmt.setString(8, bean.getProcess());
 			pstmt.setString(9, bean.getRoasting());
 			pstmt.setString(10, bean.getFlavor());
-			pstmt.setInt(11, 99999);
+			pstmt.setInt(11, bean.getVolume());
 			pstmt.setString(12, bean.getMakeDate());
 			pstmt.setInt(13, bean.getPrice());
 			pstmt.setInt(14, bean.getCost());
@@ -217,5 +217,68 @@ public class BeanDAO {
 		}
 		
 	}
+	public void updateBean(BeanVO bean) {
+			String sql = "UPDATE bean "
+					+ "SET "
+					+ "name = ?, "
+					+ "country =?, "
+					+ "area = ?, "
+					+ "farm = ?, "
+					+ "farmer = ?, "
+					+ "altitude = ?, "
+					+ "variety = ?, "
+					+ "process = ?, "
+					+ "roasting = ?, "
+					+ "flavor = ?, "
+					+ "volume = ?, "
+					+ "makedate = TO_DATE(?, 'YYYY-MM-DD'), "
+					+ "price = ?, "
+					+ "cost = ?, "
+					+ "state = ? "
+					+ "WHERE "
+					+ "b_no = ?";
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			try {
+				con = DBUtil.getConnection();
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, bean.getName());
+				pstmt.setString(2, bean.getCountry());
+				pstmt.setString(3, bean.getArea());
+				pstmt.setString(4, bean.getFarm());
+				pstmt.setString(5, bean.getFarmer());
+				pstmt.setInt(6, bean.getAltitude());
+				pstmt.setString(7, bean.getVariety());
+				pstmt.setString(8, bean.getProcess());
+				pstmt.setString(9, bean.getRoasting());
+				pstmt.setString(10, bean.getFlavor());
+				pstmt.setInt(11, bean.getVolume());
+				pstmt.setString(12, bean.getMakeDate());
+				pstmt.setInt(13, bean.getPrice());
+				pstmt.setInt(14, bean.getCost());
+				pstmt.setInt(15, 1);
+				pstmt.setInt(16, bean.getB_no());
+				
+				int i = pstmt.executeUpdate();
+				if (i == 1) {
+					System.out.println(bean.getName() + "원두 수정 완료.");
+				} else {
+					System.out.println("원두 수정 실패!!!");
+				}
+			} catch (SQLException e) {
+				System.out.println("e=[" + e + "]");
+			} catch (Exception e) {
+				System.out.println("e=[" + e + "]");
+			} finally {
+				try {
+					// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+					if (pstmt != null)
+						pstmt.close();
+					if (con != null)
+						con.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
 	
 }

@@ -10,16 +10,14 @@ import model.OrderVO;
 public class OrderDAO {
 
 	public void selectAll(String firstDate, String secondDate,int pageNo, int itemsPerPage) {
-
-//		String sql = "SELECT * from orders"
-//				+ " where state != 0 order by o_no";
 		// 페이지 번호와 페이지당 아이템 수를 기반으로 시작 인덱스 계산
 		int startIndex = ((pageNo - 1) * itemsPerPage) + 1;
 		int maxCount = 0;
 		String sql = "";
 		if (firstDate.equals("0")) {
 			sql = "SELECT * FROM ("
-					+ "    SELECT o.*, c.name AS cafe_name, b.name AS bean_name,to_char(o.o_date, 'YYYY-MM-DD') as odate,ROW_NUMBER() OVER (ORDER BY o_no) AS rnum"
+					+ "    SELECT o.*, c.name AS cafe_name, b.name AS bean_name,to_char(o.o_date, 'YYYY-MM-DD') as odate,"
+					+ " ROW_NUMBER() OVER (ORDER BY o_no) AS rnum"
 					+ "    FROM orders o INNER JOIN cafe c ON o.c_no = c.c_no"
 					+ "    INNER JOIN bean b ON o.b_no = b.b_no"
 					+ "    WHERE o.state != 0"
@@ -29,7 +27,8 @@ public class OrderDAO {
 			maxCount = (int) 1 + (getTotalConunt("0","0") / itemsPerPage);
 		} else {
 			sql = "SELECT * FROM ("
-					+ "    SELECT o.*, c.name AS cafe_name, b.name AS bean_name,to_char(o.o_date, 'YYYY-MM-DD') as odate,ROW_NUMBER() OVER (ORDER BY o_no) AS rnum"
+					+ "    SELECT o.*, c.name AS cafe_name, b.name AS bean_name,to_char(o.o_date, 'YYYY-MM-DD') as odate,"
+					+ " ROW_NUMBER() OVER (ORDER BY o_no) AS rnum"
 					+ "    FROM orders o INNER JOIN cafe c ON o.c_no = c.c_no"
 					+ "    INNER JOIN bean b ON o.b_no = b.b_no"
 					+ "    WHERE o.state != 0 and o.o_date between '" + firstDate + "' and '" + secondDate +"'"

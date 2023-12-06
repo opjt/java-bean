@@ -80,7 +80,7 @@ public class CafeDAO {
 	}
 
 	// 카페 삭제
-	public void updateCafe(CafeVO cafe) {
+	public void deleteCafe(CafeVO cafe) {
 		String sql = "update cafe set state = 0 where c_no = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -196,6 +196,49 @@ public class CafeDAO {
 		}
 		return cafeVO;
 
+	}
+
+	public void updateCafe(CafeVO cafe) {
+		String sql = "UPDATE cafe "
+				+ "SET "
+				+ "name = ?, "
+				+ "address = ?, "
+				+ "tel = ?, "
+				+ "license = ?, "
+				+ "state = ? "
+				+ "WHERE "
+				+ "c_no = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cafe.getName());
+			pstmt.setString(2, cafe.getAddress());
+			pstmt.setString(3, cafe.getTel());
+			pstmt.setString(4, cafe.getLicense());
+			pstmt.setInt(5, cafe.getState());
+			pstmt.setInt(6, cafe.getC_no());
+			int i = pstmt.executeUpdate();
+			if (i == 1) {
+				System.out.println(cafe.getName() + "카페 수정 완료.");
+			} else {
+				System.out.println("카페 수정 실패!!!");
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
 	}
 
 }

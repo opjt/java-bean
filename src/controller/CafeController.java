@@ -38,11 +38,53 @@ public class CafeController {
 		System.out.println();
 		
 	}
+	public void updateCafe() {
+		Scanner input = new Scanner(System.in);
+		
+		CafeVO cafe = new CafeVO();
+		CafeDAO cafeDAO = new CafeDAO();
+		
+		boolean state = true;
+		do {
+			cafeDAO.selectAllCafe();
+			System.out.print("카페 번호 입력 : ");
+			int cafeId = input.nextInt();
+			cafe = cafeDAO.selectCafe(cafeId);
+			
+			if(cafe != null) {
+				cafe.setC_no(cafeId);
+				state = false;
+			} else {
+				System.out.println("잘못된 카페 번호입니다");
+			}
+		}while(state);
+		
+		input.nextLine();
+		
+		System.out.print("카페 이름 입력 [" + cafe.getName() + "]  : ");
+		cafe.setName(input.nextLine());
+		System.out.print("카페 주소 입력 [" + cafe.getAddress() + "]  : ");
+		cafe.setAddress(input.nextLine());
+		System.out.print("카페 연락처 입력 [" + cafe.getTel() + "]  : ");
+		cafe.setTel(input.nextLine());
+		System.out.print("카페 사업자등록증 입력 [" + cafe.getLicense() + "]  : ");
+		cafe.setLicense(input.nextLine());
+		cafe.setState(1);
+		
+		cafeDAO.updateCafe(cafe);
+		System.out.println();
+		
+		
+
+		
+		
+	}
 	//카페삭제
 	public void removeCafe() {
 		CafeVO cafe = null;
 		CafeDAO cafeDAO = new CafeDAO();
 		Scanner input = new Scanner(System.in);
+		
 		cafeDAO.selectAllCafe();
 		boolean state = true;
 		do {
@@ -51,7 +93,7 @@ public class CafeController {
 			
 			if(cafe != null) {
 				System.out.println(cafe);
-				cafeDAO.updateCafe(cafe);
+				cafeDAO.deleteCafe(cafe);
 				state = false;
 			} else {
 				System.out.println("잘못된 카페 번호입니다");

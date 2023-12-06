@@ -66,7 +66,7 @@ public class OrderController {
 
 	}
 
-	public void addOrder() {
+	public void addOrder() { //발주 추가
 		Scanner input = new Scanner(System.in);
 		BeanDAO beanDAO = new BeanDAO();
 		CafeDAO cafeDAO = new CafeDAO();
@@ -74,7 +74,7 @@ public class OrderController {
 		OrderVO orderVO = new OrderVO();
 		BeanVO beanVO = null;
 		
-		beanDAO.selectAllBean();
+		beanDAO.selectAllBean(); //원두전체목록
 		while (true) {
 			System.out.print("원두 번호를 입력하시오 : ");
 			int no = input.nextInt();
@@ -86,7 +86,7 @@ public class OrderController {
 				break;
 			}
 		}
-		cafeDAO.selectAllCafe();
+		cafeDAO.selectAllCafe(); //카페전체목록
 		while (true) {
 			System.out.print("카페 번호를 입력하시오 : ");
 			int no = input.nextInt();

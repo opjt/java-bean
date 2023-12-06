@@ -4,7 +4,7 @@ drop table cafe;
 
 create table bean(
     b_no NUMBER(30) primary key,
-    name varchar2(100) not null unique,
+    name varchar2(100) not null,
     country varchar2(100) not null,
     area varchar2(100) not null,
     farm varchar2(100) not null,
