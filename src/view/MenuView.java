@@ -7,38 +7,33 @@ import controller.CafeController;
 import controller.OrderController;
 
 public class MenuView {
-	public static Scanner choice = new Scanner(System.in); // 메인 메뉴
 	
-	public void showOrderMenu() {
+	public void showOrderMenu() { //발주 메뉴
 		Scanner input = new Scanner(System.in);
 
 		System.out.println("1.발주조회");
 		System.out.println("2.발주생성");
 		System.out.println("3.메인메뉴");
 
-		int choice = input.nextInt();
-		OrderController orderController = new OrderController();
+		int choice = input.nextInt(); //메뉴 선택번호
+		OrderController orderController = new OrderController(); //오더 컨트롤러 생성.
 
 		switch (choice) {
 		case 1: //발주 조회
-			orderController.showList();
+			orderController.showList(); 
 			break;
 		case 2: //발주 생성
 			orderController.addOrder();
 			break;
-		case 3: //메인메뉴
+		case 3: //메인메뉴로 이동
 			break;
-		case 4:
-			return;
-		default:
+		default: //예외 값 입력
 			System.out.println("잘못된 메뉴 선택입니다");
 			break;
-
 		}
-
 	}
 
-	public void showCafeMenu() {
+	public void showCafeMenu() { //카페 메뉴
 		Scanner input = new Scanner(System.in);
 
 		System.out.println("1.카페목록");
@@ -47,8 +42,8 @@ public class MenuView {
 		System.out.println("4.카페삭제");
 		System.out.println("5.메인메뉴");
 
-		int choice = input.nextInt();
-		CafeController cafeController = new CafeController();
+		int choice = input.nextInt(); //메뉴 선택번호
+		CafeController cafeController = new CafeController(); //카페 컨트롤러 생성
 
 		switch (choice) {
 		case 1: //카페목록
@@ -63,9 +58,9 @@ public class MenuView {
 		case 4: //카페삭제
 			cafeController.removeCafe();
 			break;
-		case 5:
+		case 5: //메인메뉴로 이동
 			return;
-		default:
+		default: //예외 값 입력시
 			System.out.println("잘못된 메뉴 선택입니다");
 			break;
 
@@ -73,7 +68,7 @@ public class MenuView {
 
 	}
 
-	public void showBeanMenu() {
+	public void showBeanMenu() { //원두 메뉴
 		Scanner input = new Scanner(System.in);
 
 		System.out.println("1.원두목록");
@@ -83,8 +78,8 @@ public class MenuView {
 		System.out.println("5.원두삭제");
 		System.out.println("6.메인메뉴");
 
-		int choice = input.nextInt();
-		BeanController beanController = new BeanController();
+		int choice = input.nextInt(); //메뉴 선택번호
+		BeanController beanController = new BeanController(); // 원두 컨트롤러 생성
 
 		switch (choice) {
 		case 1: //원두목록
@@ -102,9 +97,9 @@ public class MenuView {
 		case 5: //원두삭제
 			beanController.removeBean();
 			break;
-		case 6:
+		case 6: //메인메뉴로 이동
 			return;
-		default:
+		default: //예외 값 입력시
 			System.out.println("잘못된 메뉴 선택입니다");
 			break;
 		}

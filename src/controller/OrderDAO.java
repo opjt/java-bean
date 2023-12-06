@@ -11,10 +11,11 @@ public class OrderDAO {
 
 	public void selectAll(String firstDate, String secondDate,int pageNo, int itemsPerPage) {
 		// 페이지 번호와 페이지당 아이템 수를 기반으로 시작 인덱스 계산
-		int startIndex = ((pageNo - 1) * itemsPerPage) + 1;
-		int maxCount = 0;
+		int startIndex = ((pageNo - 1) * itemsPerPage) + 1; // (( 페이지번호-1) * 보여줄수) + 1
+		int maxCount = 0; //조회방식마다 총페이지 수가 다르니 0으로 사전지정
 		String sql = "";
-		if (firstDate.equals("0")) {
+		//0 입력시 전체조회
+		if (firstDate.equals("0")) { 
 			sql = "SELECT * FROM ("
 					+ "    SELECT o.*, c.name AS cafe_name, b.name AS bean_name,to_char(o.o_date, 'YYYY-MM-DD') as odate,"
 					+ " ROW_NUMBER() OVER (ORDER BY o_no) AS rnum"
@@ -24,8 +25,8 @@ public class OrderDAO {
 					+ "    ORDER BY o.o_no"
 					+ ") "
 					+ "WHERE rnum BETWEEN ? AND ?";
-			maxCount = (int) 1 + (getTotalConunt("0","0") / itemsPerPage);
-		} else {
+			maxCount = (int) 1 + (getTotalConunt("0","0") / itemsPerPage); //최대 페이지수 설정
+		} else { //날짜별 조회
 			sql = "SELECT * FROM ("
 					+ "    SELECT o.*, c.name AS cafe_name, b.name AS bean_name,to_char(o.o_date, 'YYYY-MM-DD') as odate,"
 					+ " ROW_NUMBER() OVER (ORDER BY o_no) AS rnum"
@@ -35,12 +36,12 @@ public class OrderDAO {
 					+ "    ORDER BY o.o_no"
 					+ ") "
 					+ "WHERE rnum BETWEEN ? AND ?";
-			maxCount = (int) 1 + (getTotalConunt(firstDate,secondDate) / itemsPerPage);
+			maxCount = (int) 1 + (getTotalConunt(firstDate,secondDate) / itemsPerPage); //최대 페이지수 설정
 		}
-		if(pageNo > maxCount) {
+		if(pageNo > maxCount) { //페이지번호가 최대 페이주초과일경우
 			System.out.println("최대" + maxCount+ "페이지 입니다");
 			return;
-		} else if(pageNo <= 0){
+		} else if(pageNo <= 0){ //페이지 수가 0보다 작을 경우
 			System.out.println("잘못된 페이지 접근입니다");
 			return;
 		}
@@ -51,11 +52,9 @@ public class OrderDAO {
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startIndex);
-			pstmt.setInt(2, startIndex + itemsPerPage -1);
+			pstmt.setInt(1, startIndex); //시작할 index
+			pstmt.setInt(2, startIndex + itemsPerPage -1); //까지 보여줄 index
 			rs = pstmt.executeQuery();
-//			System.out.println("발주번호\t\t카페이름\t\t원두이름\t\t수량\t\t발주날짜\t\t가격\t\t배송지");
-
 
 			while (rs.next()) {
 				orderVO = new OrderVO();
@@ -66,14 +65,8 @@ public class OrderDAO {
 				orderVO.setO_date(rs.getString("odate")); // 발주날짜
 				orderVO.setPrice(rs.getInt("price")); // 가격
 				orderVO.setAddress(rs.getString("address")); // 주소
-
-				/*
-				 * System.out.println(orderVO.getO_no() + "\t\t" + rs.getString("cafe_name") +
-				 * "\t\t" + rs.getString("bean_name") + "\t\t" + orderVO.getVolume() + "\t\t" +
-				 * orderVO.getO_date() + "\t\t" + orderVO.getPrice() + "\t\t" +
-				 * orderVO.getAddress());
-				 */
-				 System.out.printf("발주번호: %-4d  카페이름: %-17s  원두이름: %-18s  수량: %-3d  발주날짜: %-12s  가격: %-6d  배송지: %-30s\n",
+	
+				System.out.printf("발주번호: %-4d  카페이름: %-17s  원두이름: %-18s  수량: %-3d  발주날짜: %-12s  가격: %-6d  배송지: %-30s\n",
 				            orderVO.getO_no(),rs.getString("cafe_name"), rs.getString("bean_name"),
 				            orderVO.getVolume(), orderVO.getO_date(), orderVO.getPrice(), orderVO.getAddress());
 			}
@@ -95,13 +88,13 @@ public class OrderDAO {
 		}
 
 	}
-
+	//데이터 총개수 리턴
 	private int getTotalConunt(String firstDate, String secondDate) {
 		String sql = "";
 		
-		if(firstDate.equals("0")) {
+		if(firstDate.equals("0")) {//0입력시 전체조
 			sql = "select count(*)as count from orders where state != 0";	
-		} else {
+		} else { //첫번째 매개변수 0입력 아닐시 날짜별 조회
 			sql = "select count(*)as count from orders o where state != 0 and o.o_date between '" + firstDate
 					+ "' and '" + secondDate + "' ORDER BY o.o_no";
 		}
@@ -109,13 +102,13 @@ public class OrderDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int result ;
+		int result ; //리턴값
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				result = rs.getInt("count");
+				result = rs.getInt("count"); //count 리턴
 				return result;
 			} else {
 				return 0;
@@ -138,7 +131,7 @@ public class OrderDAO {
 		}
 		return -1;
 	}
-
+	//발주 추가(ADD)
 	public void insertOrder(OrderVO orderVO) {
 		String sql = "insert into orders (o_no,c_no,b_no,volume,o_date,price,address,state) values "
 				+ "(orders_seq.nextval,?,?,?,sysdate,?,?,1)";
@@ -147,11 +140,11 @@ public class OrderDAO {
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, orderVO.getC_no());
-			pstmt.setInt(2, orderVO.getB_no());
-			pstmt.setInt(3, orderVO.getVolume());
-			pstmt.setInt(4, orderVO.getPrice());
-			pstmt.setString(5, orderVO.getAddress());
+			pstmt.setInt(1, orderVO.getC_no()); //카페번호
+			pstmt.setInt(2, orderVO.getB_no()); //원두번호
+			pstmt.setInt(3, orderVO.getVolume()); //수량
+			pstmt.setInt(4, orderVO.getPrice());  //가격
+			pstmt.setString(5, orderVO.getAddress()); //배달지
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -190,7 +183,6 @@ public class OrderDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-//			System.out.println("원두이름(no) : 총판매개수-누적판매금액[순이익]");
 			while (rs.next()) {
 				System.out.println(rs.getString("name") + "(n." + rs.getInt("b_no") + ") : 총"
 						+ rs.getString("total_volume").trim() + "개 누적판매:" + rs.getString("total_price").trim() + "원[순이익:"

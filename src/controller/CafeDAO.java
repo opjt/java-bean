@@ -8,22 +8,22 @@ import java.sql.SQLException;
 import model.CafeVO;
 
 public class CafeDAO {
+	//카페 전체수 int 리턴
 	public int getTotalConunt() {
-
-		String sql = "select count(*)as count from cafe where state != 0";
+		String sql = "select count(*) as count from cafe where state != 0";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int result ;
+		int result ; //결과값 
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				result = rs.getInt("count");
-				return result;
+				result = rs.getInt("count"); //카페 전체수 값설정
+				return result; //결과값 리턴
 			} else {
-				return 0;
+				return 0; 
 			}
 			
 		} catch (SQLException se) {
@@ -44,7 +44,7 @@ public class CafeDAO {
 		return -1;
 
 	}
-
+	//카페 정보 추가(ADD)
 	public void insertCafe(CafeVO cafe) {
 		String sql = "insert into cafe (c_no,name,address,tel,license,state) values " + "(cafe_seq.nextval,?,?,?,?,?)";
 		Connection con = null;
@@ -52,11 +52,11 @@ public class CafeDAO {
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, cafe.getName());
-			pstmt.setString(2, cafe.getAddress());
-			pstmt.setString(3, cafe.getTel());
-			pstmt.setString(4, cafe.getLicense());
-			pstmt.setInt(5, cafe.getState());
+			pstmt.setString(1, cafe.getName()); //카페이름
+			pstmt.setString(2, cafe.getAddress()); //카페주소
+			pstmt.setString(3, cafe.getTel()); //카페 연락처
+			pstmt.setString(4, cafe.getLicense()); //카페 사업자등록증 
+			pstmt.setInt(5, cafe.getState()); //카페 상태 1= 표시, 0=표시안함
 			int i = pstmt.executeUpdate();
 			if (i == 1) {
 				System.out.println(cafe.getName() + "카페 등록 완료.");
@@ -79,16 +79,16 @@ public class CafeDAO {
 		}
 	}
 
-	// 카페 삭제
+	// 카페 삭제(DELETE)
 	public void deleteCafe(CafeVO cafe) {
-		String sql = "update cafe set state = 0 where c_no = ?";
+		String sql = "update cafe set state = 0 where c_no = ?"; //카페 상태를 0으로 변환하여 기능적 삭제 구현
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cafe.getC_no());
+			pstmt.setInt(1, cafe.getC_no()); //카페 번호
 			int i = pstmt.executeUpdate();
 			if (i == 1) {
 				System.out.println(cafe.getName() + "카페 삭제 완료");
@@ -112,11 +112,8 @@ public class CafeDAO {
 		}
 	}
 
-	// 카페 전체목록출력
+	// 카페 전체목록출력(READ)
 	public void selectAllCafe() {
-
-		// 페이지 번호와 페이지당 아이템 수를 기반으로 시작 인덱스 계산
-
 		String sql = "select * from cafe where state != 0";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -129,11 +126,11 @@ public class CafeDAO {
 			System.out.println("일련번호\t카페이름/카페주소/카페연락처/카페사업자등록증");
 			while (rs.next()) {
 				cafeVO = new CafeVO();
-				cafeVO.setC_no(rs.getInt("c_no"));
-				cafeVO.setName(rs.getString("name"));
-				cafeVO.setAddress(rs.getString("address"));
-				cafeVO.setTel(rs.getString("tel"));
-				cafeVO.setLicense(rs.getString("license"));
+				cafeVO.setC_no(rs.getInt("c_no")); //카페번호
+				cafeVO.setName(rs.getString("name")); //카페이름
+				cafeVO.setAddress(rs.getString("address")); //카페주소
+				cafeVO.setTel(rs.getString("tel")); //카페번호 
+				cafeVO.setLicense(rs.getString("license")); //카페 사업자등록증
 				System.out.println(cafeVO.getC_no() + "\t" + cafeVO.getName() + "/" + cafeVO.getAddress() + "/"
 						+ cafeVO.getTel() + "/" + cafeVO.getLicense());
 			}
@@ -155,7 +152,7 @@ public class CafeDAO {
 
 	}
 
-	// 카페아이디 입력받아서 카페정보반환
+	// 카페아이디 입력받아서 카페정보 리턴
 	public CafeVO selectCafe(int cafeId) {
 		String sql = "select * from cafe where c_no = ?";
 		Connection con = null;
@@ -170,11 +167,11 @@ public class CafeDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				cafeVO = new CafeVO();
-				cafeVO.setC_no(rs.getInt("c_no"));
-				cafeVO.setName(rs.getString("name"));
-				cafeVO.setAddress(rs.getString("address"));
-				cafeVO.setTel(rs.getString("tel"));
-				cafeVO.setLicense(rs.getString("license"));
+				cafeVO.setC_no(rs.getInt("c_no")); //카페 번호
+				cafeVO.setName(rs.getString("name")); //카페 이름
+				cafeVO.setAddress(rs.getString("address")); //카페 주소  
+				cafeVO.setTel(rs.getString("tel")); //카페번호
+				cafeVO.setLicense(rs.getString("license")); //카페 사업자등록증
 				return cafeVO;
 			} else {
 				System.out.println("찾을 수 없는 카페 아이디입니다");
@@ -197,7 +194,7 @@ public class CafeDAO {
 		return cafeVO;
 
 	}
-
+	//카페 정보수정(UPDATE)
 	public void updateCafe(CafeVO cafe) {
 		String sql = "UPDATE cafe "
 				+ "SET "
@@ -213,12 +210,12 @@ public class CafeDAO {
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, cafe.getName());
-			pstmt.setString(2, cafe.getAddress());
-			pstmt.setString(3, cafe.getTel());
-			pstmt.setString(4, cafe.getLicense());
-			pstmt.setInt(5, cafe.getState());
-			pstmt.setInt(6, cafe.getC_no());
+			pstmt.setString(1, cafe.getName()); //카페이름
+			pstmt.setString(2, cafe.getAddress()); //카페주소
+			pstmt.setString(3, cafe.getTel()); //카페 전화번호
+			pstmt.setString(4, cafe.getLicense()); //카페사업자등록증
+			pstmt.setInt(5, cafe.getState()); //카페상태 1= 표시, 0=표시안함
+			pstmt.setInt(6, cafe.getC_no()); //카페번호
 			int i = pstmt.executeUpdate();
 			if (i == 1) {
 				System.out.println(cafe.getName() + "카페 수정 완료.");
