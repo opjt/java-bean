@@ -6,10 +6,10 @@ import model.BeanVO;
 import model.CafeVO;
 
 public class BeanController {
-	static BeanDAO beanDAO = new BeanDAO(); //원두DAO 생성
 
 	//원두 전체목록
 	public void showList() { 
+		BeanDAO beanDAO = new BeanDAO(); //원두DAO 생성
 		beanDAO.selectAllBean(); //원두 전체목록
 	}
 	
@@ -17,7 +17,7 @@ public class BeanController {
 	public void updateBean() {
 		Scanner input = new Scanner(System.in);
 		BeanVO bean = new BeanVO(); //원두VO 
-		
+		BeanDAO beanDAO = new BeanDAO(); //원두DAO 생성
 		boolean state = true; //do-while 상태 true=면 무한반복
 		
 		do {
@@ -127,6 +127,7 @@ public class BeanController {
 	public void addBean() { 
 		Scanner input = new Scanner(System.in);
 		BeanVO bean = new BeanVO();
+		BeanDAO beanDAO = new BeanDAO(); //원두DAO 생성
 		
 		while (true) { //원두 이름 중복체크
 			System.out.print("원두 이름 입력 : ");
@@ -226,7 +227,7 @@ public class BeanController {
 		Scanner input = new Scanner(System.in);
 		
 		boolean state = true; //true면 반복 
-		
+		BeanDAO beanDAO = new BeanDAO(); //원두DAO 생성
 		BeanVO bean = new BeanVO();
 		
 		//존재하는 원두 번호인지 검사
@@ -248,7 +249,7 @@ public class BeanController {
 
 	public void selectBean() { // 원두 상세정보
 		Scanner input = new Scanner(System.in);
-
+		BeanDAO beanDAO = new BeanDAO(); //원두DAO 생성
 		
 		BeanVO bean = new BeanVO();
 		boolean state = true; //true이면 무한반복

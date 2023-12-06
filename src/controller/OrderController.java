@@ -6,11 +6,13 @@ import model.BeanVO;
 import model.OrderVO;
 
 public class OrderController {
-	static OrderDAO orderDAO = new OrderDAO();
+	
 	
 	//발주 조회
 	public void showList() {
+		
 		Scanner input = new Scanner(System.in);
+		OrderDAO orderDAO = new OrderDAO();
 		int choice;
 		
 		System.out.println("1. 전체조회");
@@ -74,6 +76,7 @@ public class OrderController {
 		Scanner input = new Scanner(System.in);
 		BeanDAO beanDAO = new BeanDAO();
 		CafeDAO cafeDAO = new CafeDAO();
+		OrderDAO orderDAO = new OrderDAO();
 
 		OrderVO orderVO = new OrderVO();
 		BeanVO beanVO = null;
@@ -102,7 +105,7 @@ public class OrderController {
 			}
 		}
 
-		input = new Scanner(System.in); //엔터 상쇄
+		input = new Scanner(System.in); 
 
 		//수량 숫자 입력 반복
 		while (true) {

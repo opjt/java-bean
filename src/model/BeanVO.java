@@ -1,26 +1,27 @@
 package model;
 
 public class BeanVO {
-	private int b_no; //원두 일련번호
-	private String name; //원두이름
-	private String country; //원산지
-	private String area; //재배지
-	private String farm; //농장
-	private String farmer; //농부
-	private int altitude; //해발고도
-	private String variety; //품종
-	private String process; //품종
-	private String roasting; //볶음도
-	private String flavor; //향미
-	private int volume; //용량(수량)
-	private String makeDate; //제조일
-	private int price; //판매가
-	private int cost; //원가
-	private int state; //상태 1:표시 0:표시안함
+	private int b_no; // 원두 일련번호
+	private String name; // 원두이름
+	private String country; // 원산지
+	private String area; // 재배지
+	private String farm; // 농장
+	private String farmer; // 농부
+	private int altitude; // 해발고도
+	private String variety; // 품종
+	private String process; // 품종
+	private String roasting; // 볶음도
+	private String flavor; // 향미
+	private int volume; // 용량(수량)
+	private String makeDate; // 제조일
+	private int price; // 판매가
+	private int cost; // 원가
+	private int state; // 상태 1:표시 0:표시안함
+
 	public BeanVO() {
 		super();
 	}
-	
+
 	public BeanVO(int b_no, String name, String country, String area, String farm, String farmer, int altitude,
 			String variety, String process, String roasting, String flavor, int volume, String makeDate, int price,
 			int cost, int state) {
@@ -171,5 +172,4 @@ public class BeanVO {
 		this.state = state;
 	}
 
-	
 }

@@ -6,15 +6,16 @@ import model.CafeVO;
 
 public class CafeController {
 	
-	static CafeDAO cafeDAO = new CafeDAO(); //카페DAO 생성
 	
 	//카페 목록
 	public void showList() {
+		CafeDAO cafeDAO = new CafeDAO(); //카페DAO 생성
 		cafeDAO.selectAllCafe(); //카페전체목록 출력	
 	}
 	//카페추가
 	public void addCafe() {
 		Scanner input = new Scanner(System.in);
+		CafeDAO cafeDAO = new CafeDAO(); //카페DAO 생성
 		
 		CafeVO cafe = new CafeVO();
 		//카페 이름입력
@@ -43,6 +44,7 @@ public class CafeController {
 	//카페 정보 수정
 	public void updateCafe() {
 		Scanner input = new Scanner(System.in);
+		CafeDAO cafeDAO = new CafeDAO(); //카페DAO 생성
 		
 		CafeVO cafe = new CafeVO();
 		boolean state = true; //반복상태 true=반복
@@ -86,6 +88,7 @@ public class CafeController {
 	public void removeCafe() {
 		CafeVO cafe = null;
 		Scanner input = new Scanner(System.in);
+		CafeDAO cafeDAO = new CafeDAO(); //카페DAO 생성
 		
 		boolean state = true; //반복상태 true면 반복
 		do {

@@ -190,6 +190,7 @@ public class BeanDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			System.out.println("===============원두 전체목록===============");
 			System.out.println("일련번호\t원두이름-원산지 :: 판매가(원가)-용량");
 			System.out.println("────────────────────────────────────────");
 			while (rs.next()) {
